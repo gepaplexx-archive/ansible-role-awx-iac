@@ -1,0 +1,27 @@
+---
+- name: Add AWX Inventories
+  awx.awx.inventory:
+    name: "{{ item.name }}"
+    description: "{{ item.description }}"
+    organization: "{{ item.organization | default('gepaplexx') }}"
+    state: present
+    validate_certs: no
+    controller_host: "{{ awx_host_ip }}"
+    controller_username: "{{ awx_user }}"
+    controller_password: "{{ awx_pass }}"
+  loop: "{{ awx_iac_inventories }}"
+
+- name: Add AWX Credentials
+  awx.awx.credential:
+    name: "{{ item.name }}"
+    description: "{{ item.description }}"
+    organization: "{{ item.organization | default('gepaplexx') }}"
+    state: present
+    validate_certs: no
+    controller_host: "{{ awx_host_ip }}"
+    controller_username: "{{ awx_user }}"
+    controller_password: "{{ awx_pass }}"
+  loop: "{{ awx_iac_credentials }}"
+
+## ALLES WAS NOCH AUF UNSEREM AWX DEPLOYED IST.
+...

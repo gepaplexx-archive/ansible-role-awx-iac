@@ -1,0 +1,13 @@
+---
+# defaults file for awx-inventory-example
+awx_iac_host_ip: '127.0.0.1'
+awx_iac_user: 'example'
+awx_iac_pass: 'example'
+
+
+## PRO EINSPIELUNGSTYP EIN DUMMY DEFAULT
+awx_iac_inventories:
+  - name: blubb
+    content: blah
+awx_iac_credentials: {}
+...

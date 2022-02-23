@@ -1,0 +1,28 @@
+= Awx config as code
+:toc:
+
+== Overview
+
+This Repository contains a Setup Playbook for our awx resources.
+We get Versioning for free with this approach.
+Compared to a backup-and-restore there is a major benefit:
+We know this works because we used it for setup.
+
+== Setup
+
+$ export OPERATOR_IMAGE=quay.io/ansible/awx-operator:0.16.0
+$ export AWX_TEST_IMAGE=quay.io/ansible/awx-operator:0.16.0
+$ molecule converge
+== Usage
+
+----
+ansible-playbook playbooks/populate-awx.yml -e"awx_user=admin awx_pass=lWS6l12S1ty4zCpst8ZlNL79RWCDeb4I awx_host_ip=https://awx.play.gepaplexx.com:80/"
+----
+
+== Getting awx credentials
+Default Admin-User: admin
+
+Getting the password from the kubernetes secret:
+----
+kubectl get secret example-awx-admin-password -o jsonpath='{.data.password}' | base64 -d
+----
