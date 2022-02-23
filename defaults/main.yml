@@ -5,10 +5,13 @@ awx_iac_user: 'example'
 awx_iac_pass: 'example'
 
 
-## PRO EINSPIELUNGSTYP EIN DUMMY DEFAULT
+## One default per resource type
 awx_iac_inventories:
   - name: Inventory Example 1
     description: An example Inventory
     organization: gepaplexx
 awx_iac_credentials:
+    - name: Credentials Example 1
+    description: An example Credential
+    organization: gepaplexx
 ...
