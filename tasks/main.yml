@@ -23,6 +23,18 @@
     controller_password: "{{ awx_pass }}"
   loop: "{{ awx_iac_inventories }}"
 
+- name: Add an inventory source
+  awx.awx.inventory_source:
+    name: "{{ item.name }}"
+    description: "{{ item.description }}"
+    inventory: "{{ item.inventory }}"
+    credential: "{{ item.credential }}"
+    overwrite: "{{ item.overwrite }}"
+    update_on_launch: "{{ item.update_on_lauch }}"
+    organization: "{{ item.organization | default('gepaplexx') }}"
+    source_vars: "{{ item.source_vars }}"
+  loop: "{{ awx_iac_inventorysources }}"
+
 - name: Add AWX Hosts
   awx.awx.host:
     name: "{{ item.name }}"

@@ -6,14 +6,24 @@ awx_iac_pass: 'example'
 
 
 ## One default per resource type
-awx_iac_inventories:
-  - name: Inventory Example 1
-    description: An example Inventory
-    organization: gepaplexx
 awx_iac_credentials:
     - name: Credentials Example 1
       description: An example Credential
       organization: gepaplexx
+awx_iac_inventories:
+  - name: Inventory Example 1
+    description: An example Inventory
+    organization: gepaplexx
+awx_iac_inventorysource:
+  - name: Inventory Source Example 1
+    description: An example Inventory Source
+    inventory: Inventory Example 1
+    credential: Credentials Example 1
+    overwite: true
+    update_on_launch: true
+    organization: gepaplexx
+    source_vars:
+       private: false
 awx_iac_hosts:
     - name: Hosts Example 1
       description: An example Host
