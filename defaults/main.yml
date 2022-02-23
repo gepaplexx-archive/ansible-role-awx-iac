@@ -12,6 +12,12 @@ awx_iac_inventories:
     organization: gepaplexx
 awx_iac_credentials:
     - name: Credentials Example 1
-    description: An example Credential
-    organization: gepaplexx
+      description: An example Credential
+      organization: gepaplexx
+awx_iac_hosts:
+    - name: Hosts Example 1
+      description: An example Host
+      inventory: "Inventory Example 1"
+      variables:
+        example_var: 123
 ...
