@@ -5,7 +5,12 @@ awx_iac_user: 'example'
 awx_iac_pass: 'example'
 
 
-## One default per resource type
+## One example per resource type
+  awx.awx.organisation:
+    name: gepaplexx
+    description: The gepaplexx organisation
+    state: present
+
 awx_iac_credentials:
     - name: Credentials Example 1
       description: An example Credential
@@ -22,11 +27,6 @@ awx_iac_projects:
       scm_branch: main
       scm_url: https://github.com/gepaplexx/createme.git
       update_project: yes
-      state: present
-      validate_certs: false
-      controller_host: "{{ awx_host_ip }}"
-      controller_username: "{{ awx_user }}"
-      controller_password: "{{ awx_pass }}"
 
 awx_iac_inventories:
     - name: Inventory Example 1
