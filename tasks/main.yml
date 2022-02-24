@@ -78,5 +78,21 @@
     controller_password: "{{ awx_pass }}"
   loop: "{{ awx_iac_hosts }}"
 
+- name: Add AWX Job Template
+  awx.awx.job_template:
+    name: "{{ item.name }}"
+    description: "{{ item.description }}"
+    job_type: "{{ item.job_type }}"
+    inventory: "{{ item.inventory }}"
+    project: "{{ item.project }}"
+    playbook: "{{ item.playbook }}"
+    credentials: "{{ item.credentials }}"
+    state: present
+    validate_certs: false
+    controller_host: "{{ awx_host_ip }}"
+    controller_username: "{{ awx_user }}"
+    controller_password: "{{ awx_pass }}"
+  loop: "{{ awx_iac_job_templates }}"
+
 ## ALLES WAS NOCH AUF UNSEREM AWX DEPLOYED IST.
 ...

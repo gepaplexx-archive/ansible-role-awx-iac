@@ -12,7 +12,7 @@ awx_iac_pass: 'example'
     state: present
 
 awx_iac_credentials:
-    - name: Credentials Example 1
+    - name: Credential Example 1
       description: An example Credential
       organization: gepaplexx
       credential_type: Ansible Galaxy/Automation Hub API Token
@@ -20,7 +20,7 @@ awx_iac_credentials:
         galaxy_server_url: https://galaxy.ansible.com/
 
 awx_iac_projects:
-    - name: Projects Examlple 1
+    - name: Project Examlple 1
       description: An Example Project
       organization: gepaplexx
       scm_type: git
@@ -50,4 +50,13 @@ awx_iac_hosts:
       inventory: "Inventory Example 1"
       variables:
           example_var: 123
+
+awx_iac_job_templates:
+    - name: Job Template Example 1
+      description: An example Job Template
+      job_type: run
+      inventory: Inventory Example 1
+      project: Project Example 1
+      playbook: Playbooke Example
+      credentials: Credentials Example 1
 ...
