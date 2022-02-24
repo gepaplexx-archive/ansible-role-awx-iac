@@ -10,6 +10,23 @@ awx_iac_credentials:
     - name: Credentials Example 1
       description: An example Credential
       organization: gepaplexx
+      credential_type: Ansible Galaxy/Automation Hub API Token
+      inputs: 
+        galaxy_server_url: https://galaxy.ansible.com/
+
+awx_iac_projects:
+    - name: Projects Examlple 1
+      description: An Example Project
+      organization: gepaplexx
+      scm_type: git
+      scm_branch: main
+      scm_url: https://github.com/gepaplexx/createme.git
+      update_project: yes
+      state: present
+      validate_certs: false
+      controller_host: "{{ awx_host_ip }}"
+      controller_username: "{{ awx_user }}"
+      controller_password: "{{ awx_pass }}"
 
 awx_iac_inventories:
     - name: Inventory Example 1

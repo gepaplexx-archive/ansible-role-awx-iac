@@ -4,12 +4,30 @@
     name: "{{ item.name }}"
     description: "{{ item.description }}"
     organization: "{{ item.organization | default('gepaplexx') }}"
+    credential_type: "{{ item.credential_type }}"
+    inputs: "{{ item.inputs }}"
     state: present
     validate_certs: false
     controller_host: "{{ awx_host_ip }}"
     controller_username: "{{ awx_user }}"
     controller_password: "{{ awx_pass }}"
   loop: "{{ awx_iac_credentials }}"
+
+- name: Add AWX Projects
+  awx.awx.project:
+    name: "{{ item.name }}"
+    description: "{{ item.description }}"
+    organization: "{{ item.organization | default('gepaplexx') }}"
+    scm_type: "{{ item.scm_type }}"
+    scm_branch: "{{ item.scm_branch }}"
+    scm_url: "{{ item.scm_url }}"
+    update_project: "{{ item.update_project }}"
+    state: present
+    validate_certs: false
+    controller_host: "{{ awx_host_ip }}"
+    controller_username: "{{ awx_user }}"
+    controller_password: "{{ awx_pass }}"
+  loop: "{{ awx_iac_projects }}"
 
 - name: Add AWX Inventories
   awx.awx.inventory:
