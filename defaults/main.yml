@@ -59,4 +59,34 @@ awx_iac_job_templates:
       project: Project Example 1
       playbook: Playbooke Example
       credentials: Credentials Example 1
+
+awx_iac_workflowjob_templates:
+    - name: Workflow Job Template Example 1
+      description: An example Workflow Job Template
+      organisation: gepaplexx
+      schema:
+        - identifier: node1
+          unified_job_template:
+            name: Inventory Source
+            inventory:
+              organization:
+                name: gepaplexx
+            type: inventory_source
+          related:
+            success_nodes:
+              - identifier: node2
+            failure_nodes: []
+            always_nodes: []
+            credentials: []
+        - identifier: node2
+          unified_job_template:
+            name: Job template
+            organization: 
+              name: gepaplexx
+            type: job_template
+          related:
+            success_nodes: []
+            failure_nodes: []
+            always_nodes: []
+            credentials: []
 ...
