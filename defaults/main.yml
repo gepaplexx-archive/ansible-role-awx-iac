@@ -1,12 +1,12 @@
 ---
 # defaults file for awx-inventory-example
-awx_iac_host_ip: '127.0.0.1'
+awx_iac_host_ip: "127.0.0.1"
 awx_iac_user: 'example'
 awx_iac_pass: 'example'
 
 
-## One example per resource type
-  awx.awx.organisation:
+# One example per resource type
+awx.awx.organisation:
     name: gepaplexx
     description: The gepaplexx organisation
     state: present
@@ -16,8 +16,8 @@ awx_iac_credentials:
       description: An example Credential
       organization: gepaplexx
       credential_type: Ansible Galaxy/Automation Hub API Token
-      inputs: 
-        galaxy_server_url: https://galaxy.ansible.com/
+      inputs:
+          galaxy_server_url: https://galaxy.ansible.com/
 
 awx_iac_projects:
     - name: Project Examlple 1
@@ -65,28 +65,28 @@ awx_iac_workflowjob_templates:
       description: An example Workflow Job Template
       organisation: gepaplexx
       schema:
-        - identifier: node1
-          unified_job_template:
-            name: Inventory Source
-            inventory:
-              organization:
-                name: gepaplexx
-            type: inventory_source
-          related:
-            success_nodes:
-              - identifier: node2
-            failure_nodes: []
-            always_nodes: []
-            credentials: []
-        - identifier: node2
-          unified_job_template:
-            name: Job template
-            organization: 
-              name: gepaplexx
-            type: job_template
-          related:
-            success_nodes: []
-            failure_nodes: []
-            always_nodes: []
-            credentials: []
+          - identifier: node1
+            unified_job_template:
+                name: Inventory Source
+                inventory:
+                    organization:
+                        name: gepaplexx
+                type: inventory_source
+            related:
+                success_nodes:
+                    - identifier: node2
+                failure_nodes: []
+                always_nodes: []
+                credentials: []
+          - identifier: node2
+            unified_job_template:
+                name: Job template
+                organization:
+                    name: gepaplexx
+                type: job_template
+            related:
+                success_nodes: []
+                failure_nodes: []
+                always_nodes: []
+                credentials: []
 ...
