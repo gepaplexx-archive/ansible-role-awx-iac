@@ -1,32 +1,30 @@
 ---
 # defaults file for awx-inventory-example
-awx_iac_host_ip: "127.0.0.1"
-awx_iac_user: 'example'
-awx_iac_pass: 'example'
+awx_iac_host_ip: "http://awx.play.gepaplexx.com"
+awx_iac_user: 'admin'
+awx_iac_pass: ''
 
 
 # One example per resource type
-awx.awx.organisation:
-    name: gepaplexx
-    description: The gepaplexx organisation
-    state: present
+awx_iac_organizations:
+    - name: gepaplexx
+      description: The gepaplexx organisation
+      state: present
 
 awx_iac_credentials:
     - name: Credential Example 1
       description: An example Credential
       organization: gepaplexx
       credential_type: Ansible Galaxy/Automation Hub API Token
-      inputs:
-          galaxy_server_url: https://galaxy.ansible.com/
 
 awx_iac_projects:
-    - name: Project Examlple 1
+    - name: Project Example 1
       description: An Example Project
       organization: gepaplexx
       scm_type: git
       scm_branch: main
-      scm_url: https://github.com/gepaplexx/createme.git
-      update_project: yes
+      scm_url: https://github.com/gepaplexx/gepaplexx-playbooks.git
+      update_project: true
 
 awx_iac_inventories:
     - name: Inventory Example 1
@@ -38,7 +36,7 @@ awx_iac_inventorysources:
       description: An example Inventory Source
       inventory: Inventory Example 1
       credential: Credentials Example 1
-      overwite: true
+      overwrite: true
       update_on_launch: true
       organization: gepaplexx
       source_vars:
@@ -57,36 +55,36 @@ awx_iac_job_templates:
       job_type: run
       inventory: Inventory Example 1
       project: Project Example 1
-      playbook: Playbooke Example
-      credentials: Credentials Example 1
+      playbook: playbook-awx-iac.yaml
+      credentials: Credential Example 1
 
-awx_iac_workflowjob_templates:
+awx_iac_workflow_job_templates:
     - name: Workflow Job Template Example 1
       description: An example Workflow Job Template
       organisation: gepaplexx
-      schema:
-          - identifier: node1
-            unified_job_template:
-                name: Inventory Source
-                inventory:
-                    organization:
-                        name: gepaplexx
-                type: inventory_source
-            related:
-                success_nodes:
-                    - identifier: node2
-                failure_nodes: []
-                always_nodes: []
-                credentials: []
-          - identifier: node2
-            unified_job_template:
-                name: Job template
-                organization:
-                    name: gepaplexx
-                type: job_template
-            related:
-                success_nodes: []
-                failure_nodes: []
-                always_nodes: []
-                credentials: []
+      schema: []
+        #   - identifier: node1
+        #     unified_job_template:
+        #         name: Job Template Example 1
+        #         inventory:
+        #             organization:
+        #                 name: gepaplexx
+        #         type: job_template
+        #     related:
+        #         success_nodes:
+        #             - identifier: node2
+        #         failure_nodes: []
+        #         always_nodes: []
+        #         credentials: []
+        #   - identifier: node2
+        #     unified_job_template:
+        #         name: Job template
+        #         organization:
+        #             name: gepaplexx
+        #         type: job_template
+        #     related:
+        #         success_nodes: []
+        #         failure_nodes: []
+        #         always_nodes: []
+        #         credentials: []
 ...

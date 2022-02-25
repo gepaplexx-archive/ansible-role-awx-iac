@@ -1,14 +1,14 @@
 ---
-- name: Add AWX Organisation
-  awx.awx.organisation:
+- name: Add AWX Organization
+  awx.awx.organization:
     name: "{{ item.name }}"
     description: "{{ item.description }}"
     state: present
     validate_certs: false
-    controller_host: "{{ awx_host_ip }}"
-    controller_username: "{{ awx_user }}"
-    controller_password: "{{ awx_pass }}"
-  loop: "{{ awx_iac_organisations }}"
+    controller_host: "{{ awx_iac_host_ip }}"
+    controller_username: "{{ awx_iac_user }}"
+    controller_password: "{{ awx_iac_pass }}"
+  loop: "{{ awx_iac_organizations }}"
 
 
 - name: Add AWX Credentials
@@ -17,12 +17,11 @@
     description: "{{ item.description }}"
     organization: "{{ item.organization | default('gepaplexx') }}"
     credential_type: "{{ item.credential_type }}"
-    inputs: "{{ item.inputs }}"
     state: present
     validate_certs: false
-    controller_host: "{{ awx_host_ip }}"
-    controller_username: "{{ awx_user }}"
-    controller_password: "{{ awx_pass }}"
+    controller_host: "{{ awx_iac_host_ip }}"
+    controller_username: "{{ awx_iac_user }}"
+    controller_password: "{{ awx_iac_pass }}"
   loop: "{{ awx_iac_credentials }}"
 
 - name: Add AWX Projects
@@ -33,12 +32,12 @@
     scm_type: "{{ item.scm_type }}"
     scm_branch: "{{ item.scm_branch }}"
     scm_url: "{{ item.scm_url }}"
-    update_project: "{{ item.update_project }}"
+    # update_project: "{{ item.update_project }}"
     state: present
     validate_certs: false
-    controller_host: "{{ awx_host_ip }}"
-    controller_username: "{{ awx_user }}"
-    controller_password: "{{ awx_pass }}"
+    controller_host: "{{ awx_iac_host_ip }}"
+    controller_username: "{{ awx_iac_user }}"
+    controller_password: "{{ awx_iac_pass }}"
   loop: "{{ awx_iac_projects }}"
 
 - name: Add AWX Inventories
@@ -48,22 +47,22 @@
     organization: "{{ item.organization | default('gepaplexx') }}"
     state: present
     validate_certs: false
-    controller_host: "{{ awx_host_ip }}"
-    controller_username: "{{ awx_user }}"
-    controller_password: "{{ awx_pass }}"
+    controller_host: "{{ awx_iac_host_ip }}"
+    controller_username: "{{ awx_iac_user }}"
+    controller_password: "{{ awx_iac_pass }}"
   loop: "{{ awx_iac_inventories }}"
 
-- name: Add an inventory source
-  awx.awx.inventory_source:
-    name: "{{ item.name }}"
-    description: "{{ item.description }}"
-    inventory: "{{ item.inventory }}"
-    credential: "{{ item.credential }}"
-    overwrite: "{{ item.overwrite }}"
-    update_on_launch: "{{ item.update_on_lauch }}"
-    organization: "{{ item.organization | default('gepaplexx') }}"
-    source_vars: "{{ item.source_vars }}"
-  loop: "{{ awx_iac_inventorysources }}"
+# - name: Add an inventory source
+#   awx.awx.inventory_source:
+#     name: "{{ item.name }}"
+#     description: "{{ item.description }}"
+#     inventory: "{{ item.inventory }}"
+#     credential: "{{ item.credential }}"
+#     overwrite: "{{ item.overwrite }}"
+#     update_on_launch: "{{ item.update_on_launch }}"
+#     organization: "{{ item.organization | default('gepaplexx') }}"
+#     source_vars: "{{ item.source_vars }}"
+#   loop: "{{ awx_iac_inventorysources }}"
 
 - name: Add AWX Hosts
   awx.awx.host:
@@ -73,9 +72,9 @@
     variables: "{{ item.variables }}"
     state: present
     validate_certs: false
-    controller_host: "{{ awx_host_ip }}"
-    controller_username: "{{ awx_user }}"
-    controller_password: "{{ awx_pass }}"
+    controller_host: "{{ awx_iac_host_ip }}"
+    controller_username: "{{ awx_iac_user }}"
+    controller_password: "{{ awx_iac_pass }}"
   loop: "{{ awx_iac_hosts }}"
 
 - name: Add AWX Job Template
@@ -86,12 +85,12 @@
     inventory: "{{ item.inventory }}"
     project: "{{ item.project }}"
     playbook: "{{ item.playbook }}"
-    credentials: "{{ item.credentials }}"
+    # credentials: "{{ item.credentials }}"
     state: present
     validate_certs: false
-    controller_host: "{{ awx_host_ip }}"
-    controller_username: "{{ awx_user }}"
-    controller_password: "{{ awx_pass }}"
+    controller_host: "{{ awx_iac_host_ip }}"
+    controller_username: "{{ awx_iac_user }}"
+    controller_password: "{{ awx_iac_pass }}"
   loop: "{{ awx_iac_job_templates }}"
 
 - name: Add AWX Job Template
@@ -102,9 +101,9 @@
     schema: "{{ item.schema }}"
     state: present
     validate_certs: false
-    controller_host: "{{ awx_host_ip }}"
-    controller_username: "{{ awx_user }}"
-    controller_password: "{{ awx_pass }}"
+    controller_host: "{{ awx_iac_host_ip }}"
+    controller_username: "{{ awx_iac_user }}"
+    controller_password: "{{ awx_iac_pass }}"
   loop: "{{ awx_iac_workflow_job_templates }}"
 
 ## ALLES WAS NOCH AUF UNSEREM AWX DEPLOYED IST.
