@@ -1,6 +1,6 @@
 ---
 # defaults file for awx-inventory-example
-awx_iac_host_ip: "http://awx.play.gepaplexx.com"
+awx_iac_host_ip: "127.0.0.1"
 awx_iac_user: 'admin'
 awx_iac_pass: ''
 
@@ -63,28 +63,4 @@ awx_iac_workflow_job_templates:
       description: An example Workflow Job Template
       organisation: gepaplexx
       schema: []
-        #   - identifier: node1
-        #     unified_job_template:
-        #         name: Job Template Example 1
-        #         inventory:
-        #             organization:
-        #                 name: gepaplexx
-        #         type: job_template
-        #     related:
-        #         success_nodes:
-        #             - identifier: node2
-        #         failure_nodes: []
-        #         always_nodes: []
-        #         credentials: []
-        #   - identifier: node2
-        #     unified_job_template:
-        #         name: Job template
-        #         organization:
-        #             name: gepaplexx
-        #         type: job_template
-        #     related:
-        #         success_nodes: []
-        #         failure_nodes: []
-        #         always_nodes: []
-        #         credentials: []
 ...
