@@ -32,7 +32,6 @@
     scm_type: "{{ item.scm_type }}"
     scm_branch: "{{ item.scm_branch }}"
     scm_url: "{{ item.scm_url }}"
-    # update_project: "{{ item.update_project }}"
     state: present
     validate_certs: false
     controller_host: "{{ awx_iac_host_ip }}"
@@ -51,18 +50,6 @@
     controller_username: "{{ awx_iac_user }}"
     controller_password: "{{ awx_iac_pass }}"
   loop: "{{ awx_iac_inventories }}"
-
-# - name: Add an inventory source
-#   awx.awx.inventory_source:
-#     name: "{{ item.name }}"
-#     description: "{{ item.description }}"
-#     inventory: "{{ item.inventory }}"
-#     credential: "{{ item.credential }}"
-#     overwrite: "{{ item.overwrite }}"
-#     update_on_launch: "{{ item.update_on_launch }}"
-#     organization: "{{ item.organization | default('gepaplexx') }}"
-#     source_vars: "{{ item.source_vars }}"
-#   loop: "{{ awx_iac_inventorysources }}"
 
 - name: Add AWX Hosts
   awx.awx.host:
@@ -85,7 +72,6 @@
     inventory: "{{ item.inventory }}"
     project: "{{ item.project }}"
     playbook: "{{ item.playbook }}"
-    # credentials: "{{ item.credentials }}"
     state: present
     validate_certs: false
     controller_host: "{{ awx_iac_host_ip }}"

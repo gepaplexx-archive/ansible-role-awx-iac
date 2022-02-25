@@ -31,17 +31,6 @@ awx_iac_inventories:
       description: An example Inventory
       organization: gepaplexx
 
-awx_iac_inventorysources:
-    - name: Inventory Source Example 1
-      description: An example Inventory Source
-      inventory: Inventory Example 1
-      credential: Credentials Example 1
-      overwrite: true
-      update_on_launch: true
-      organization: gepaplexx
-      source_vars:
-          private: false
-
 awx_iac_hosts:
     - name: Hosts Example 1
       description: An example Host
