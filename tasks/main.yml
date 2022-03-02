@@ -18,7 +18,7 @@
     organization: "{{ item.organization | default('gepaplexx') }}"
     credential_type: "{{ item.credential_type }}"
     inputs: "{{ item.inputs | default({}) }}"
-    # provide idempotency for reruns, set to true to actually update secrets
+    # provide idempotency for reruns, set update_secrets true to actually update secrets
     update_secrets: "{{ item.update_secrets | default(false) }}"
     state: present
     validate_certs: false
