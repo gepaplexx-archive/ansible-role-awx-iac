@@ -32,9 +32,17 @@
     name: "{{ item.name }}"
     description: "{{ item.description }}"
     organization: "{{ item.organization | default('gepaplexx') }}"
+    credential: "{{ item.credential }}"
     scm_type: "{{ item.scm_type }}"
     scm_branch: "{{ item.scm_branch }}"
     scm_url: "{{ item.scm_url }}"
+    scm_refspec: "{{ item.scm_refspec }}"
+    scm_clean: "{{ item.scm_clean }}"
+    scm_track_submodules: "{{ item.scm_track_submodules }}"
+    scm_delete_on_update: "{{ item.scm_delete_on_update }}"
+    scm_update_on_launch: "{{ item.scm_update_on_launch }}"
+    scm_update_cache_timeout: "{{ item.scm_update_cache_timeout }}"
+    allow_override: "{{ item.allow_override }}"
     state: present
     validate_certs: false
     controller_host: "{{ awx_iac_host_ip }}"
