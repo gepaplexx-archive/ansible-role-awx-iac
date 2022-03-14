@@ -83,7 +83,7 @@
     controller_password: "{{ awx_iac_pass }}"
   loop: "{{ awx_iac_inventory_sources }}"
 
-- name: Update Inventory Sources
+- name: Update Inventory Sources and import Hosts
   awx.awx.inventory_source_update:
     name: "{{ item.name }}"
     inventory: "{{ item.inventory }}"
@@ -96,6 +96,7 @@
   # deactivated for development
   when: false
 
+# In practice hosts come from synced inventory sources
 - name: Add AWX Hosts
   awx.awx.host:
     name: "{{ item.name }}"
