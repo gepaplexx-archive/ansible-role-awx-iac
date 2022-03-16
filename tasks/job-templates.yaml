@@ -8,7 +8,7 @@
     organization: "{{ item.organization | default('gepaplexx') }}"
     execution_environment: "{{ item.execution_environment | default('') }}"
     job_type: "{{ item.job_type }}"
-    inventory: "{{ item.inventory | default('') }}"
+    inventory: "{{ item.inventory | default('default') }}"
     project: "{{ item.project }}"
     playbook: "{{ item.playbook }}"
     credentials: "{{ item.credentials | default([]) }}"
