@@ -1,0 +1,13 @@
+---
+- name: Add AWX Workflow Job Template
+  awx.awx.workflow_job_template:
+    name: "{{ item.name }}"
+    description: "{{ item.description }}"
+    organization: "{{ item.organization | default('gepaplexx') }}"
+    schema: "{{ item.schema }}"
+    state: present
+    validate_certs: true
+    controller_host: "{{ awx_iac_host_ip }}"
+    controller_username: "{{ awx_iac_user }}"
+    controller_password: "{{ awx_iac_pass }}"
+  loop: "{{ awx_iac_workflow_job_templates }}"
