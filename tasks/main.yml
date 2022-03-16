@@ -4,7 +4,7 @@
     name: "{{ item.name }}"
     description: "{{ item.description }}"
     state: present
-    validate_certs: false
+    validate_certs: true
     controller_host: "{{ awx_iac_host_ip }}"
     controller_username: "{{ awx_iac_user }}"
     controller_password: "{{ awx_iac_pass }}"
@@ -18,10 +18,10 @@
     organization: "{{ item.organization | default('gepaplexx') }}"
     credential_type: "{{ item.credential_type }}"
     inputs: "{{ item.inputs | default({}) }}"
-    # provide idempotency for reruns, set update_secrets true to actually update secrets
+    # update_secrets deactivated for dev
     update_secrets: "{{ item.update_secrets | default(false) }}"
     state: present
-    validate_certs: false
+    validate_certs: true
     controller_host: "{{ awx_iac_host_ip }}"
     controller_username: "{{ awx_iac_user }}"
     controller_password: "{{ awx_iac_pass }}"
@@ -44,7 +44,7 @@
     scm_update_cache_timeout: "{{ item.scm_update_cache_timeout }}"
     allow_override: "{{ item.allow_override }}"
     state: present
-    validate_certs: false
+    validate_certs: true
     controller_host: "{{ awx_iac_host_ip }}"
     controller_username: "{{ awx_iac_user }}"
     controller_password: "{{ awx_iac_pass }}"
@@ -55,9 +55,8 @@
     name: "{{ item.name }}"
     description: "{{ item.description }}"
     organization: "{{ item.organization | default('gepaplexx') }}"
-    variables: "{{ item.variables }}"
     state: present
-    validate_certs: false
+    validate_certs: true
     controller_host: "{{ awx_iac_host_ip }}"
     controller_username: "{{ awx_iac_user }}"
     controller_password: "{{ awx_iac_pass }}"
@@ -77,7 +76,7 @@
     source_path: "{{ item.source_path }}"
     source_vars: "{{ item.source_vars | default({}) }}"
     state: present
-    validate_certs: false
+    validate_certs: true
     controller_host: "{{ awx_iac_host_ip }}"
     controller_username: "{{ awx_iac_user }}"
     controller_password: "{{ awx_iac_pass }}"
@@ -88,7 +87,7 @@
     name: "{{ item.name }}"
     inventory: "{{ item.inventory }}"
     organization: "{{ item.organization | default('gepaplexx') }}"
-    validate_certs: false
+    validate_certs: true
     controller_host: "{{ awx_iac_host_ip }}"
     controller_username: "{{ awx_iac_user }}"
     controller_password: "{{ awx_iac_pass }}"
@@ -96,47 +95,49 @@
   # deactivated for development
   when: false
 
-# In practice hosts come from synced inventory sources
-- name: Add AWX Hosts
-  awx.awx.host:
+- name: Add AWX Execution Environment
+  awx.awx.execution_environment:
     name: "{{ item.name }}"
-    description: "{{ item.description }}"
-    inventory: "{{ item.inventory }}"
-    variables: "{{ item.variables }}"
+    image: "{{ item.image }}"
     state: present
-    validate_certs: false
+    validate_certs: true
     controller_host: "{{ awx_iac_host_ip }}"
     controller_username: "{{ awx_iac_user }}"
     controller_password: "{{ awx_iac_pass }}"
-  loop: "{{ awx_iac_hosts }}"
+  loop: "{{ awx_iac_execution_environments }}"
 
+# TODO: awx.awx.job_template.expects to match exactly 
+# one inventory if the variable is present
 - name: Add AWX Job Template
   awx.awx.job_template:
     name: "{{ item.name }}"
     description: "{{ item.description }}"
+    organization: "{{ item.organization | default('gepaplexx') }}"
+    execution_environment: "{{ item.execution_environment | default('') }}"
     job_type: "{{ item.job_type }}"
-    inventory: "{{ item.inventory }}"
+    inventory: "{{ item.inventory | default('') }}"
     project: "{{ item.project }}"
     playbook: "{{ item.playbook }}"
+    credentials: "{{ item.credentials | default([]) }}"
+    limit: "{{ item.limit | default('') }}"
+    become_enabled: "{{ item.become_enabled | default(true) }}"
+    ask_inventory_on_launch: "{{ item.ask_inventory_on_launch | default(true) }}"
     state: present
-    validate_certs: false
+    validate_certs: true
     controller_host: "{{ awx_iac_host_ip }}"
     controller_username: "{{ awx_iac_user }}"
     controller_password: "{{ awx_iac_pass }}"
   loop: "{{ awx_iac_job_templates }}"
 
-- name: Add AWX Job Template
+- name: Add AWX Workflow Job Template
   awx.awx.workflow_job_template:
     name: "{{ item.name }}"
     description: "{{ item.description }}"
     organization: "{{ item.organization | default('gepaplexx') }}"
     schema: "{{ item.schema }}"
     state: present
-    validate_certs: false
+    validate_certs: true
     controller_host: "{{ awx_iac_host_ip }}"
     controller_username: "{{ awx_iac_user }}"
     controller_password: "{{ awx_iac_pass }}"
   loop: "{{ awx_iac_workflow_job_templates }}"
-
-## ALLES WAS NOCH AUF UNSEREM AWX DEPLOYED IST.
-...
