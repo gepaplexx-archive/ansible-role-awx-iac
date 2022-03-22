@@ -1,21 +1,21 @@
 ---
-# - name: Include Add AWX Organization
-#   include_tasks: organizations.yaml
+- name: Include Add AWX Organization
+  include_tasks: organizations.yaml
 
-# - name: Include Add AWX Credentials
-#   include_tasks: credentials.yaml
+- name: Include Add AWX Credentials
+  include_tasks: credentials.yaml
 
-# - name: Include Add AWX Projects
-#   include_tasks: projects.yaml
+- name: Include Add AWX Projects
+  include_tasks: projects.yaml
 
-# - name: Include Add AWX Execution Environment
-#   include_tasks: execution-environments.yaml
+- name: Include Add AWX Execution Environment
+  include_tasks: execution-environments.yaml
 
-# - name: Include Add AWX Inventories, Inventory Sources and Update
-#   include_tasks: inventories.yaml
+- name: Include Add AWX Inventories, Inventory Sources and Update
+  include_tasks: inventories.yaml
 
 - name: Include Add AWX Job Templates
   include_tasks: job-templates.yaml
 
-# - name: Add AWX Workflow Job Templates
-#   include_tasks: workflow-templates.yaml
+- name: Add AWX Workflow Job Templates
+  include_tasks: workflow-templates.yaml
