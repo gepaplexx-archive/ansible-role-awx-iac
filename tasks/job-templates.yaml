@@ -1,5 +1,5 @@
 ---
-# TODO: awx.awx.job_template.expects to match exactly 
+# TODO: awx.awx.job_template.expects to match exactly
 # one inventory if the variable is present
 - name: Add AWX Job Template
   awx.awx.job_template:
