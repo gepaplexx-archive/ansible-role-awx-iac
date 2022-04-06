@@ -1,15 +1,15 @@
 ---
 - name: Add AWX Workflow Job Template Nodes
   awx.awx.workflow_job_template_node:
-    extra_data: "{{ item.extra_data }}"
-    inventory: "{{ item.inventory }}"
-    scm_branch: "{{ item.scm_branch }}"
-    job_tags: "{{ item.job_tags }}"
-    skip_tags: "{{ item.skip_tags }}"
-    limit: "{{ item.limit }}"
+    extra_data: "{{ item.extra_data | default(omit) }}"
+    inventory: "{{ item.inventory | default(None) }}"
+    scm_branch: "{{ item.scm_branch | default(None) }}"
+    job_tags: "{{ item.job_tags | default(None) }}"
+    skip_tags: "{{ item.skip_tags | default(None) }}"
+    limit: "{{ item.limit | default(None) }}"
     workflow_job_template: "{{ item.workflow_job_template }}"
     unified_job_template: "{{ item.unified_job_template }}"
-    all_parents_must_converge: "{{ item.all_parents_must_converge }}"
+    all_parents_must_converge: "{{ item.all_parents_must_converge | default(false) }}"
     identifier: "{{ item.identifier }}"
     state: present
     validate_certs: true
@@ -21,18 +21,18 @@
 # Now the nodes exist. The loop variable is the same. We add the success, failure and always nodes.
 - name: Add AWX Workflow Job Template Node Connections
   awx.awx.workflow_job_template_node:
-    extra_data: "{{ item.extra_data }}"
-    inventory: "{{ item.inventory }}"
-    scm_branch: "{{ item.scm_branch }}"
-    job_tags: "{{ item.job_tags }}"
-    skip_tags: "{{ item.skip_tags }}"
-    limit: "{{ item.limit }}"
+    extra_data: "{{ item.extra_data | default(omit) }}"
+    inventory: "{{ item.inventory | default(None) }}"
+    scm_branch: "{{ item.scm_branch | default(None) }}"
+    job_tags: "{{ item.job_tags | default(None) }}"
+    skip_tags: "{{ item.skip_tags | default(None) }}"
+    limit: "{{ item.limit | default(None) }}"
     workflow_job_template: "{{ item.workflow_job_template }}"
     unified_job_template: "{{ item.unified_job_template }}"
-    success_nodes: "{{ item.success_nodes }}"
-    failure_nodes: "{{ item.failure_nodes }}"
-    always_nodes: "{{ item.always_nodes }}"
-    all_parents_must_converge: "{{ item.all_parents_must_converge }}"
+    success_nodes: "{{ item.success_nodes | default(omit) }}"
+    failure_nodes: "{{ item.failure_nodes | default(omit) }}"
+    always_nodes: "{{ item.always_nodes | default(omit) }}"
+    all_parents_must_converge: "{{ item.all_parents_must_converge | default(false) }}"
     identifier: "{{ item.identifier }}"
     state: present
     validate_certs: true
