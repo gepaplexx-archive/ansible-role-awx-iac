@@ -8,10 +8,17 @@ We get Versioning for free with this approach.
 Compared to a backup-and-restore there is a major benefit:
 We know this works because we used it for setup.
 
+All changes to the awx workflows need to be checked-in.
+
 == Setup
 
+Configure an existing awx with all our workflows and other awx items:
+
 Run the corresponding playbook(gepaplexx-playbooks), with the variabls
-from the hub-inventory(inventory hub).
+from the hub-inventory(inventory-hub).
+
+awx_iac_host_ip: ip or hostname of the awx
+awx_iac_pass: password of the awx
 
 For convenience you can store the become password and ssh keys in an ansible vault.
 ----
