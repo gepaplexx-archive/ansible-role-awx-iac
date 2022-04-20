@@ -8,17 +8,54 @@ We get Versioning for free with this approach.
 Compared to a backup-and-restore there is a major benefit:
 We know this works because we used it for setup.
 
+All changes to the awx workflows need to be checked-in.
+
 == Setup
 
-== Usage
+Configure an existing awx with all our workflows and other awx items:
 
+Run the corresponding playbook(gepaplexx-playbooks), with the variabls
+from the hub-inventory(inventory-hub).
+
+awx_iac_host_ip: ip or hostname of the awx
+awx_iac_pass: password of the awx
+
+For convenience you can store the become password and ssh keys in an ansible vault.
 ----
+ansible-playbook playbook-awx-iac.yaml 
+-i /some/dir/inventory-hub/ 
+-e"awx_iac_host_ip=***** awx_iac_pass=***** " 
+--vault-password-file /some/dir/some.file
 ----
 
-== Getting awx credentials
+== Structure
+
+This role is structured in tasks. One task for each resource. This is not 
+strict. The inventories task for instance contains inventories and inventory
+ sources.
+
+The workflow-template-nodes task creates all nodes in a workflow. Then it 
+creates all the connections in a second step. If you try to setup each node 
+with connections, you fail because the connected nodes will be missing.
+
+== Development
+
+For development you can comment out any unneeded tasks from the tasks/main.yaml.
+ You can use pre-commit for yamllint.
+
+== Hints
+
+=== Getting awx credentials
 Default Admin-User: admin
 
 Getting the password from the kubernetes secret:
 ----
 kubectl get secret example-awx-admin-password -o jsonpath='{.data.password}' | base64 -d
+----
+
+=== Generating a html file from this document
+
+if asciidoctor is installed:
+----
+ascidoctor readme.adoc
 ----
