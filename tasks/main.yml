@@ -4,7 +4,7 @@
     name: "{{ item.name }}"
     description: "{{ item.description }}"
     state: present
-    validate_certs: false
+    validate_certs: true
     controller_host: "{{ awx_iac_host_ip }}"
     controller_username: "{{ awx_iac_user }}"
     controller_password: "{{ awx_iac_pass }}"
@@ -18,7 +18,7 @@
     organization: "{{ item.organization | default('gepaplexx') }}"
     credential_type: "{{ item.credential_type }}"
     state: present
-    validate_certs: false
+    validate_certs: true
     controller_host: "{{ awx_iac_host_ip }}"
     controller_username: "{{ awx_iac_user }}"
     controller_password: "{{ awx_iac_pass }}"
@@ -33,7 +33,7 @@
     scm_branch: "{{ item.scm_branch }}"
     scm_url: "{{ item.scm_url }}"
     state: present
-    validate_certs: false
+    validate_certs: true
     controller_host: "{{ awx_iac_host_ip }}"
     controller_username: "{{ awx_iac_user }}"
     controller_password: "{{ awx_iac_pass }}"
@@ -45,7 +45,7 @@
     description: "{{ item.description }}"
     organization: "{{ item.organization | default('gepaplexx') }}"
     state: present
-    validate_certs: false
+    validate_certs: true
     controller_host: "{{ awx_iac_host_ip }}"
     controller_username: "{{ awx_iac_user }}"
     controller_password: "{{ awx_iac_pass }}"
@@ -58,7 +58,7 @@
     inventory: "{{ item.inventory }}"
     variables: "{{ item.variables }}"
     state: present
-    validate_certs: false
+    validate_certs: true
     controller_host: "{{ awx_iac_host_ip }}"
     controller_username: "{{ awx_iac_user }}"
     controller_password: "{{ awx_iac_pass }}"
@@ -73,7 +73,7 @@
     project: "{{ item.project }}"
     playbook: "{{ item.playbook }}"
     state: present
-    validate_certs: false
+    validate_certs: true
     controller_host: "{{ awx_iac_host_ip }}"
     controller_username: "{{ awx_iac_user }}"
     controller_password: "{{ awx_iac_pass }}"
@@ -86,14 +86,18 @@
     organization: "{{ item.organization | default('gepaplexx') }}"
     schema: "{{ item.schema }}"
     state: present
-    validate_certs: false
+    validate_certs: true
     controller_host: "{{ awx_iac_host_ip }}"
     controller_username: "{{ awx_iac_user }}"
     controller_password: "{{ awx_iac_pass }}"
   loop: "{{ awx_iac_workflow_job_templates }}"
 
-- name: Add thirdparty authentication
+- name: Add ThirdParty Auth Github
   awx.awx.settings:
     name: "{{ item.name }}"
     value: "{{ item.value }}"
-  loop: "{{ awx_iac_thirdparty_authentication }}"
+    validate_certs: true
+    controller_host: "{{ awx_iac_host_ip }}"
+    controller_username: "{{ awx_iac_user }}"
+    controller_password: "{{ awx_iac_pass }}"
+  loop: "{{ awx_iac_github_auth }}"
