@@ -1,0 +1,103 @@
+---
+- name: Add AWX Organization
+  awx.awx.organization:
+    name: "{{ item.name }}"
+    description: "{{ item.description }}"
+    state: present
+    validate_certs: true
+    controller_host: "{{ awx_iac_host_ip }}"
+    controller_username: "{{ awx_iac_user }}"
+    controller_password: "{{ awx_iac_pass }}"
+  loop: "{{ awx_iac_organizations }}"
+
+
+- name: Add AWX Credentials
+  awx.awx.credential:
+    name: "{{ item.name }}"
+    description: "{{ item.description }}"
+    organization: "{{ item.organization | default('gepaplexx') }}"
+    credential_type: "{{ item.credential_type }}"
+    state: present
+    validate_certs: true
+    controller_host: "{{ awx_iac_host_ip }}"
+    controller_username: "{{ awx_iac_user }}"
+    controller_password: "{{ awx_iac_pass }}"
+  loop: "{{ awx_iac_credentials }}"
+
+- name: Add AWX Projects
+  awx.awx.project:
+    name: "{{ item.name }}"
+    description: "{{ item.description }}"
+    organization: "{{ item.organization | default('gepaplexx') }}"
+    scm_type: "{{ item.scm_type }}"
+    scm_branch: "{{ item.scm_branch }}"
+    scm_url: "{{ item.scm_url }}"
+    state: present
+    validate_certs: true
+    controller_host: "{{ awx_iac_host_ip }}"
+    controller_username: "{{ awx_iac_user }}"
+    controller_password: "{{ awx_iac_pass }}"
+  loop: "{{ awx_iac_projects }}"
+
+- name: Add AWX Inventories
+  awx.awx.inventory:
+    name: "{{ item.name }}"
+    description: "{{ item.description }}"
+    organization: "{{ item.organization | default('gepaplexx') }}"
+    state: present
+    validate_certs: true
+    controller_host: "{{ awx_iac_host_ip }}"
+    controller_username: "{{ awx_iac_user }}"
+    controller_password: "{{ awx_iac_pass }}"
+  loop: "{{ awx_iac_inventories }}"
+
+- name: Add AWX Hosts
+  awx.awx.host:
+    name: "{{ item.name }}"
+    description: "{{ item.description }}"
+    inventory: "{{ item.inventory }}"
+    variables: "{{ item.variables }}"
+    state: present
+    validate_certs: true
+    controller_host: "{{ awx_iac_host_ip }}"
+    controller_username: "{{ awx_iac_user }}"
+    controller_password: "{{ awx_iac_pass }}"
+  loop: "{{ awx_iac_hosts }}"
+
+- name: Add AWX Job Template
+  awx.awx.job_template:
+    name: "{{ item.name }}"
+    description: "{{ item.description }}"
+    job_type: "{{ item.job_type }}"
+    inventory: "{{ item.inventory }}"
+    project: "{{ item.project }}"
+    playbook: "{{ item.playbook }}"
+    state: present
+    validate_certs: true
+    controller_host: "{{ awx_iac_host_ip }}"
+    controller_username: "{{ awx_iac_user }}"
+    controller_password: "{{ awx_iac_pass }}"
+  loop: "{{ awx_iac_job_templates }}"
+
+- name: Add AWX Job Template
+  awx.awx.workflow_job_template:
+    name: "{{ item.name }}"
+    description: "{{ item.description }}"
+    organization: "{{ item.organization | default('gepaplexx') }}"
+    schema: "{{ item.schema }}"
+    state: present
+    validate_certs: true
+    controller_host: "{{ awx_iac_host_ip }}"
+    controller_username: "{{ awx_iac_user }}"
+    controller_password: "{{ awx_iac_pass }}"
+  loop: "{{ awx_iac_workflow_job_templates }}"
+
+- name: Add ThirdParty Auth Github
+  awx.awx.settings:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    validate_certs: true
+    controller_host: "{{ awx_iac_host_ip }}"
+    controller_username: "{{ awx_iac_user }}"
+    controller_password: "{{ awx_iac_pass }}"
+  loop: "{{ awx_iac_github_auth }}"

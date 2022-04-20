@@ -22,3 +22,6 @@
 
 - name: Add AWX Workflow Job Template Nodes
   include_tasks: workflow-template-nodes.yaml
+
+- name: Add AWX Settings
+  include_tasks: settings.yaml
