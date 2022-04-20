@@ -1,0 +1,11 @@
+---
+- name: Add AWX Execution Environment
+  awx.awx.execution_environment:
+    name: "{{ item.name }}"
+    image: "{{ item.image }}"
+    state: present
+    validate_certs: true
+    controller_host: "{{ awx_iac_host_ip }}"
+    controller_username: "{{ awx_iac_user }}"
+    controller_password: "{{ awx_iac_pass }}"
+  loop: "{{ awx_iac_execution_environments }}"

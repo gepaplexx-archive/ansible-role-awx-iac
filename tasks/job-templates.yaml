@@ -1,0 +1,23 @@
+---
+# TODO: awx.awx.job_template.expects to match exactly
+# one inventory if the variable is present
+- name: Add AWX Job Template
+  awx.awx.job_template:
+    name: "{{ item.name }}"
+    description: "{{ item.description }}"
+    organization: "{{ item.organization | default('gepaplexx') }}"
+    execution_environment: "{{ item.execution_environment | default('') }}"
+    job_type: "{{ item.job_type }}"
+    inventory: "{{ item.inventory | default('default') }}"
+    project: "{{ item.project }}"
+    playbook: "{{ item.playbook }}"
+    credentials: "{{ item.credentials | default([]) }}"
+    limit: "{{ item.limit | default('') }}"
+    become_enabled: "{{ item.become_enabled | default(true) }}"
+    ask_inventory_on_launch: "{{ item.ask_inventory_on_launch | default(true) }}"
+    state: present
+    validate_certs: true
+    controller_host: "{{ awx_iac_host_ip }}"
+    controller_username: "{{ awx_iac_user }}"
+    controller_password: "{{ awx_iac_pass }}"
+  loop: "{{ awx_iac_job_templates }}"
