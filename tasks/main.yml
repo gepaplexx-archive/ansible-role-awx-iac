@@ -92,5 +92,8 @@
     controller_password: "{{ awx_iac_pass }}"
   loop: "{{ awx_iac_workflow_job_templates }}"
 
-## ALLES WAS NOCH AUF UNSEREM AWX DEPLOYED IST.
-...
+- name: Add thirdparty authentication
+  awx.awx.settings:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+  loop: "{{ awx_iac_thirdparty_authentication }}"
