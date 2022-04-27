@@ -10,6 +10,8 @@
     controller_username: "{{ awx_iac_user }}"
     controller_password: "{{ awx_iac_pass }}"
   loop: "{{ awx_iac_inventories }}"
+  loop_control:
+    label: "{{ item.name }}"
 
 - name: Add AWX Inventory Sources
   awx.awx.inventory_source:
@@ -30,6 +32,8 @@
     controller_username: "{{ awx_iac_user }}"
     controller_password: "{{ awx_iac_pass }}"
   loop: "{{ awx_iac_inventory_sources }}"
+  loop_control:
+    label: "{{ item.name }}"
 
 - name: Update Inventory Sources and import Hosts
   awx.awx.inventory_source_update:
@@ -41,3 +45,5 @@
     controller_username: "{{ awx_iac_user }}"
     controller_password: "{{ awx_iac_pass }}"
   loop: "{{ awx_iac_inventory_sources }}"
+  loop_control:
+    label: "{{ item.name }}"

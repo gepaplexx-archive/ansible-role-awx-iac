@@ -17,6 +17,8 @@
     controller_username: "{{ awx_iac_user }}"
     controller_password: "{{ awx_iac_pass }}"
   loop: "{{ awx_iac_workflow_job_template_nodes }}"
+  loop_control:
+    label: "{{ item.name }}"
 
 # Now the nodes exist. The loop variable is the same. We add the success, failure and always nodes.
 - name: Add AWX Workflow Job Template Node Connections
@@ -40,3 +42,5 @@
     controller_username: "{{ awx_iac_user }}"
     controller_password: "{{ awx_iac_pass }}"
   loop: "{{ awx_iac_workflow_job_template_nodes }}"
+  loop_control:
+    label: "{{ item.name }}"
