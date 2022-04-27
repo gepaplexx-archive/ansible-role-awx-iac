@@ -8,3 +8,4 @@
     controller_username: "{{ awx_iac_user }}"
     controller_password: "{{ awx_iac_pass }}"
   loop: "{{ awx_iac_github_auth }}"
+  no_log: true
