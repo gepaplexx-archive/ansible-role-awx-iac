@@ -22,9 +22,9 @@ awx_iac_pass: password of the awx
 
 For convenience you can store the become password and ssh keys in an ansible vault.
 ----
-ansible-playbook playbook-awx-iac.yaml 
--i /some/dir/inventory-hub/ 
--e"awx_iac_host_ip=***** awx_iac_pass=***** " 
+ansible-playbook playbook-awx-iac.yaml \
+-i /some/dir/inventory-hub/ \
+-e"awx_iac_host_ip=***** awx_iac_pass=***** " \
 --vault-password-file /some/dir/some.file
 ----
 
