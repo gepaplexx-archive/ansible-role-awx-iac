@@ -1,7 +1,0 @@
----
-collections:
-  - name: kubernetes.core
-  - name: community.general
-  - name: awx.awx
-    version: 19.4.0
-...
